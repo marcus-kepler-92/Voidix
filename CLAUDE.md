@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Guidelines for using Claude Code in this LobeHub repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Tech Stack
 
@@ -98,25 +98,65 @@ Open this URL to develop locally against the production backend (app.lobehub.com
 - `bun` to run npm scripts
 - `bunx` for executable npm packages
 
+### Linting & Type-checking
+
+```bash
+# Full lint suite (ts + styles + type-check + circular imports)
+bun run lint
+
+bun run lint:ts        # ESLint on src/ and tests/
+bun run lint:style     # Stylelint on JSX/TSX files
+bun run lint:circular  # Detect circular imports in src + packages
+bun run type-check     # TypeScript type checking
+bun run lint:unused    # Find unused exports/imports (knip)
+bun run lint:console   # Validate console.log whitelist compliance
+```
+
 ### Testing
 
 ```bash
-# Run specific test (NEVER run `bun run test` - takes ~10 minutes)
+# Run a single test file (preferred — full suite takes ~10 minutes)
 bunx vitest run --silent='passed-only' '[file-path]'
 
-# Database package
+# Database package tests
 cd packages/database && bunx vitest run --silent='passed-only' '[file]'
+
+# E2E tests (Cucumber + Playwright)
+bun run e2e            # Requires e2e env setup
+bun run e2e:install    # Install Playwright browsers first
 ```
 
+- Vitest runs in `happy-dom` environment (not jsdom)
 - Prefer `vi.spyOn` over `vi.mock`
 - Tests must pass type check: `bun run type-check`
 - After 2 failed fix attempts, stop and ask for help
+
+### Database
+
+```bash
+bun run db:generate    # Generate Drizzle migrations + update DBML schema
+bun run db:migrate     # Run pending migrations (sets MIGRATION_DB=1)
+bun run db:studio      # Open Drizzle Studio UI
+```
+
+Drizzle config: `drizzle.config.ts` reads `DATABASE_URL`. Schema source: `packages/database/src/schemas/`. Migrations: `packages/database/migrations/`.
 
 ### i18n
 
 - Add keys to `src/locales/default/namespace.ts`
 - For dev preview: translate `locales/zh-CN/` and `locales/en-US/`
 - Don't run `pnpm i18n` - CI handles it
+
+## Server Architecture
+
+`src/server/` contains all server-side code (Next.js RSC + API handlers):
+
+- **`routers/`** – TRPC routers split by deployment target: `async/` (background jobs), `lambda/` (serverless), `mobile/`, `tools/`. Each directory exports a router that composes domain services.
+- **`services/`** – 40+ domain services (e.g., `AgentService`, `ChatService`, `FileService`). Each service file imports from `packages/database` for DB access; keep business logic here, not in routers.
+- **`featureFlags/`** – Runtime feature flag resolution (LaunchDarkly + env var fallbacks).
+- **`globalConfig/`** – Server-side config aggregation exposed to clients.
+
+TRPC router path: `src/app/(backend)/trpc/[trpc]/route.ts` → `src/server/routers/`.
 
 ## Skills (Auto-loaded by Claude)
 
