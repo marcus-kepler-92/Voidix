@@ -2,7 +2,7 @@ import { BUILTIN_AGENT_SLUGS } from '@lobechat/builtin-agents';
 import { Jimeng } from '@lobehub/icons';
 import { type ButtonProps } from '@lobehub/ui';
 import { Button, Center, Tooltip } from '@lobehub/ui';
-import { createStaticStyles, cssVar, cx } from 'antd-style';
+import { createStaticStyles, cssVar } from 'antd-style';
 import { ImageIcon } from 'lucide-react';
 import { memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -10,13 +10,8 @@ import { useTranslation } from 'react-i18next';
 import { useInitBuiltinAgent } from '@/hooks/useInitBuiltinAgent';
 import { useStableNavigate } from '@/hooks/useStableNavigate';
 import { type StarterMode } from '@/store/home';
-import { useHomeStore } from '@/store/home';
 
 const styles = createStaticStyles(({ css, cssVar }) => ({
-  active: css`
-    border-color: ${cssVar.colorFillSecondary} !important;
-    background: ${cssVar.colorBgElevated} !important;
-  `,
   button: css`
     height: 40px;
     border-color: ${cssVar.colorFillSecondary};
@@ -30,13 +25,7 @@ const styles = createStaticStyles(({ css, cssVar }) => ({
   `,
 }));
 
-type StarterTitleKey =
-  | 'starter.createAgent'
-  | 'starter.createGroup'
-  | 'starter.write'
-  | 'starter.imageGeneration'
-  | 'starter.videoGeneration'
-  | 'starter.deepResearch';
+type StarterTitleKey = 'starter.imageGeneration' | 'starter.videoGeneration';
 
 interface StarterItem {
   disabled?: boolean;
@@ -54,10 +43,6 @@ const StarterList = memo(() => {
   useInitBuiltinAgent(BUILTIN_AGENT_SLUGS.pageAgent);
 
   const navigate = useStableNavigate();
-  const [inputActiveMode, setInputActiveMode] = useHomeStore((s) => [
-    s.inputActiveMode,
-    s.setInputActiveMode,
-  ]);
 
   const items: StarterItem[] = useMemo(
     () => [
@@ -86,17 +71,9 @@ const StarterList = memo(() => {
 
       if (key === 'image') {
         navigate('/image?model=gpt-image-2');
-        return;
-      }
-
-      // Toggle mode: if clicking the active mode, clear it; otherwise set it
-      if (inputActiveMode === key) {
-        setInputActiveMode(null);
-      } else {
-        setInputActiveMode(key);
       }
     },
-    [inputActiveMode, navigate, setInputActiveMode],
+    [navigate],
   );
 
   return (
@@ -104,14 +81,14 @@ const StarterList = memo(() => {
       {items.map((item) => {
         const button = (
           <Button
-            className={cx(styles.button, inputActiveMode === item.key && styles.active)}
+            className={styles.button}
             disabled={item.disabled}
             icon={item.icon}
             key={item.key}
             shape={'round'}
             variant={'outlined'}
             iconProps={{
-              color: inputActiveMode === item.key ? cssVar.colorText : cssVar.colorTextSecondary,
+              color: cssVar.colorTextSecondary,
               size: 18,
             }}
             onClick={() => handleClick(item.key)}
