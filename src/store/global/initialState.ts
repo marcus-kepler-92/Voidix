@@ -9,6 +9,7 @@ import { AsyncLocalStorage } from '@/utils/localStorage';
 export enum SidebarTabKey {
   Chat = 'chat',
   Community = 'community',
+  Generate = 'generate',
   Home = 'home',
   Image = 'image',
   Knowledge = 'knowledge',
@@ -112,6 +113,7 @@ export interface SystemStatus {
   expandTopicGroupKeys?: string[];
   fileManagerViewMode?: 'list' | 'masonry';
   filePanelWidth: number;
+  generationMode?: 'image' | 'video';
   /**
    * Group Agent Builder panel width
    */

@@ -504,6 +504,7 @@ export default {
   'tab.discover': 'Discover',
   'tab.eval': 'Eval Lab',
   'tab.files': 'Files',
+  'tab.generate': 'Create',
   'tab.home': 'Home',
   'tab.knowledgeBase': 'Library',
   'tab.marketplace': 'Marketplace',

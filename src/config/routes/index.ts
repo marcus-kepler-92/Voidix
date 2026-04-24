@@ -6,6 +6,7 @@ import {
   LibraryBigIcon,
   Settings,
   ShapesIcon,
+  Sparkles,
   Video,
 } from 'lucide-react';
 
@@ -35,6 +36,16 @@ export interface NavigationRoute {
  * Used by both Electron navigation and CommandMenu (CMDK)
  */
 export const NAVIGATION_ROUTES: NavigationRoute[] = [
+  {
+    cmdkKey: 'cmdk.generate',
+    electronKey: 'navigation.generate',
+    icon: Sparkles,
+    id: 'generate',
+    keywords: ['generate', 'image', 'video', 'create'],
+    keywordsKey: 'cmdk.keywords.generate',
+    path: '/generate',
+    pathPrefix: '/generate',
+  },
   {
     cmdkKey: 'cmdk.community',
     electronKey: 'navigation.discover',
@@ -119,5 +130,5 @@ export const getRouteById = (id: string): NavigationRoute | undefined =>
  */
 export const getNavigableRoutes = (): NavigationRoute[] =>
   NAVIGATION_ROUTES.filter((r) =>
-    ['community', 'video', 'image', 'resource', 'page', 'memory'].includes(r.id),
+    ['generate', 'community', 'video', 'image', 'resource', 'page', 'memory'].includes(r.id),
   );

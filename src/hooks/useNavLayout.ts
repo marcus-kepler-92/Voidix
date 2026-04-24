@@ -38,16 +38,10 @@ export const useNavLayout = (): NavLayout => {
     () =>
       [
         {
-          icon: getRouteById('image')!.icon,
-          key: SidebarTabKey.Image,
-          title: t('tab.image'),
-          url: '/image',
-        },
-        {
-          icon: getRouteById('video')!.icon,
-          key: SidebarTabKey.Video,
-          title: t('tab.video'),
-          url: '/video',
+          icon: getRouteById('generate')!.icon,
+          key: SidebarTabKey.Generate,
+          title: t('tab.generate'),
+          url: '/generate',
         },
       ] as NavItem[],
     [t],

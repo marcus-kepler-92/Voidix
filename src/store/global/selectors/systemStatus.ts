@@ -34,7 +34,7 @@ export const DEFAULT_HIDDEN_SECTIONS: string[] = ['memory'];
 const hiddenSidebarSections = (s: GlobalState): string[] =>
   s.status.hiddenSidebarSections ?? DEFAULT_HIDDEN_SECTIONS;
 
-export const DEFAULT_SIDEBAR_ITEMS: string[] = ['image', 'video'];
+export const DEFAULT_SIDEBAR_ITEMS: string[] = ['generate'];
 
 /** Items that must stay contiguous in the sidebar list (accordion block). */
 export const SIDEBAR_ACCORDION_KEYS = new Set<string>([]);
@@ -180,6 +180,7 @@ const showVideoTopicPanel = (s: GlobalState) => s.status.showVideoTopicPanel;
 const wideScreen = (s: GlobalState) => !s.status.noWideScreen;
 const chatInputHeight = (s: GlobalState) => s.status.chatInputHeight || 64;
 const expandInputActionbar = (s: GlobalState) => s.status.expandInputActionbar;
+const generationMode = (s: GlobalState): 'image' | 'video' => s.status.generationMode ?? 'image';
 const isStatusInit = (s: GlobalState) => !!s.isStatusInit;
 
 const getAgentSystemRoleExpanded =
@@ -217,6 +218,7 @@ export const systemStatusSelectors = {
   disabledModelsSortType,
   expandInputActionbar,
   filePanelWidth,
+  generationMode,
   getAgentSystemRoleExpanded,
   groupAgentBuilderPanelWidth,
   hiddenSidebarSections,
