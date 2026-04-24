@@ -11,6 +11,8 @@ import WideScreenContainer from '@/features/WideScreenContainer';
 import WideScreenButton from '@/features/WideScreenContainer/WideScreenButton';
 import { useQueryState } from '@/hooks/useQueryParam';
 
+import GalleryGrid from './GalleryGrid';
+
 interface CreateGenerationPageProps {
   path: string;
   PromptInput: ComponentType<{ disableAnimation?: boolean; showTitle?: boolean }>;
@@ -57,11 +59,12 @@ const CreateGenerationPage = memo<CreateGenerationPageProps>(({ path, Workspace,
                 >
                   <Flexbox
                     align={'center'}
-                    justify={'center'}
-                    style={{ minHeight: 'calc(100vh - 180px)' }}
+                    direction={'vertical'}
+                    style={{ minHeight: 'calc(100vh - 180px)', paddingBlockStart: 80 }}
                     width={'100%'}
                   >
                     <PromptInput disableAnimation showTitle />
+                    <GalleryGrid />
                   </Flexbox>
                 </motion.div>
               ) : (
