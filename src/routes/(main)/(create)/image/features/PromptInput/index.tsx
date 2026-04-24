@@ -6,6 +6,7 @@ import { Divider, Switch } from 'antd';
 import { Images } from 'lucide-react';
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { loginRequired } from '@/components/Error/loginRequiredNotification';
 import Action from '@/features/ChatInput/ActionBar/components/Action';
@@ -100,6 +101,7 @@ const PromptExtendItem = memo(() => {
 const PromptInput = ({ showTitle = false }: PromptInputProps) => {
   const isDarkMode = useIsDark();
   const { t } = useTranslation('image');
+  const navigate = useNavigate();
   const { value, setValue } = useGenerationConfigParam('prompt');
   const { value: imageUrl, setValue: setImageUrl } = useGenerationConfigParam('imageUrl');
   const {
@@ -144,7 +146,12 @@ const PromptInput = ({ showTitle = false }: PromptInputProps) => {
       return;
     }
 
+    const prevTopicId = useImageStore.getState().activeGenerationTopicId;
     await createImage();
+    if (!prevTopicId) {
+      const newTopicId = useImageStore.getState().activeGenerationTopicId;
+      if (newTopicId) navigate(`/image/${newTopicId}`);
+    }
   };
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import { Divider, Switch } from 'antd';
 import { Clock3, Dices } from 'lucide-react';
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import VideoFreeQuotaInfo from '@/business/client/features/VideoFreeQuotaInfo';
 import { loginRequired } from '@/components/Error/loginRequiredNotification';
@@ -201,6 +202,7 @@ const PromptExtendItem = memo(() => {
 const PromptInput = ({ showTitle = false }: PromptInputProps) => {
   const isDarkMode = useIsDark();
   const { t } = useTranslation('video');
+  const navigate = useNavigate();
   const { value, setValue } = useVideoGenerationConfigParam('prompt');
   const { value: imageUrl, setValue: setImageUrl } = useVideoGenerationConfigParam('imageUrl');
   const {
@@ -248,7 +250,12 @@ const PromptInput = ({ showTitle = false }: PromptInputProps) => {
       return;
     }
 
+    const prevTopicId = useVideoStore.getState().activeGenerationTopicId;
     await createVideo();
+    if (!prevTopicId) {
+      const newTopicId = useVideoStore.getState().activeGenerationTopicId;
+      if (newTopicId) navigate(`/video/${newTopicId}`);
+    }
   };
 
   useEffect(() => {
