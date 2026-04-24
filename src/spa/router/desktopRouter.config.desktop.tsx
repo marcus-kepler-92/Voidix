@@ -9,12 +9,9 @@ import {
 import DesktopOnboarding from '@/routes/(desktop)/desktop-onboarding';
 // Layouts — sync import (Electron local, no network overhead)
 import DesktopMainLayout from '@/routes/(main)/_layout';
-import ImagePage from '@/routes/(main)/(create)/image';
-import DesktopImageLayout from '@/routes/(main)/(create)/image/_layout';
-import ImageWorkspacePage from '@/routes/(main)/(create)/image/workspace';
-import VideoPage from '@/routes/(main)/(create)/video';
-import DesktopVideoLayout from '@/routes/(main)/(create)/video/_layout';
-import VideoWorkspacePage from '@/routes/(main)/(create)/video/workspace';
+import GeneratePage from '@/routes/(main)/(create)/generate';
+import GenerateLayout from '@/routes/(main)/(create)/generate/_layout';
+import GenerateWorkspacePage from '@/routes/(main)/(create)/generate/workspace';
 // Pages — sync import
 import AgentPage from '@/routes/(main)/agent';
 import DesktopChatLayout from '@/routes/(main)/agent/_layout';
@@ -355,38 +352,15 @@ export const desktopRoutes: RouteObject[] = [
         path: 'memory',
       },
 
-      // Video routes
+      // Generate routes
       {
         children: [
-          {
-            element: <VideoPage />,
-            index: true,
-          },
-          {
-            element: <VideoWorkspacePage />,
-            path: ':topicId',
-          },
+          { element: <GeneratePage />, index: true },
+          { element: <GenerateWorkspacePage />, path: ':topicId' },
         ],
-        element: <DesktopVideoLayout />,
+        element: <GenerateLayout />,
         errorElement: <ErrorBoundary />,
-        path: 'video',
-      },
-
-      // Image routes
-      {
-        children: [
-          {
-            element: <ImagePage />,
-            index: true,
-          },
-          {
-            element: <ImageWorkspacePage />,
-            path: ':topicId',
-          },
-        ],
-        element: <DesktopImageLayout />,
-        errorElement: <ErrorBoundary />,
-        path: 'image',
+        path: 'generate',
       },
 
       ...BusinessDesktopRoutesWithMainLayout,
@@ -468,9 +442,9 @@ export const desktopRoutes: RouteObject[] = [
         path: 'page',
       },
 
-      // Default route - redirect to image generation
+      // Default route - redirect to generate
       {
-        element: redirectElement('/image'),
+        element: redirectElement('/generate'),
         index: true,
       },
       // Catch-all route

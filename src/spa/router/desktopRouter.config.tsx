@@ -425,56 +425,30 @@ export const desktopRoutes: RouteObject[] = [
         path: 'memory',
       },
 
-      // Video routes
+      // Generate routes
       {
         children: [
           {
             element: dynamicElement(
-              () => import('@/routes/(main)/(create)/video'),
-              'Desktop > Video',
+              () => import('@/routes/(main)/(create)/generate'),
+              'Desktop > Generate',
             ),
             index: true,
           },
           {
             element: dynamicElement(
-              () => import('@/routes/(main)/(create)/video/workspace'),
-              'Desktop > Video > Workspace',
+              () => import('@/routes/(main)/(create)/generate/workspace'),
+              'Desktop > Generate > Workspace',
             ),
             path: ':topicId',
           },
         ],
         element: dynamicLayout(
-          () => import('@/routes/(main)/(create)/video/_layout'),
-          'Desktop > Video > Layout',
+          () => import('@/routes/(main)/(create)/generate/_layout'),
+          'Desktop > Generate > Layout',
         ),
         errorElement: <ErrorBoundary />,
-        path: 'video',
-      },
-
-      // Image routes
-      {
-        children: [
-          {
-            element: dynamicElement(
-              () => import('@/routes/(main)/(create)/image'),
-              'Desktop > Image',
-            ),
-            index: true,
-          },
-          {
-            element: dynamicElement(
-              () => import('@/routes/(main)/(create)/image/workspace'),
-              'Desktop > Image > Workspace',
-            ),
-            path: ':topicId',
-          },
-        ],
-        element: dynamicLayout(
-          () => import('@/routes/(main)/(create)/image/_layout'),
-          'Desktop > Image > Layout',
-        ),
-        errorElement: <ErrorBoundary />,
-        path: 'image',
+        path: 'generate',
       },
 
       ...BusinessDesktopRoutesWithMainLayout,
@@ -590,9 +564,9 @@ export const desktopRoutes: RouteObject[] = [
         path: 'page',
       },
 
-      // Default route - redirect to image generation
+      // Default route - redirect to generate
       {
-        element: redirectElement('/image'),
+        element: redirectElement('/generate'),
         index: true,
       },
       // Catch-all route
