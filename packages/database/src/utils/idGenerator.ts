@@ -20,6 +20,7 @@ const prefixes = {
   evalRuns: 'run',
   evalTestCases: 'case',
   files: 'file',
+  galleryItems: 'gal',
   generationBatches: 'gb',
   generationTopics: 'gt',
   generations: 'gen',

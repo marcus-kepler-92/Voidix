@@ -11,6 +11,7 @@ export * from './betterAuth';
 export * from './chatGroup';
 export * from './documentHistory';
 export * from './file';
+export * from './galleryItem';
 export * from './generation';
 export * from './message';
 export * from './nextauth';
