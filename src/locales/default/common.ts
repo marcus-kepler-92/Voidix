@@ -137,6 +137,7 @@ export default {
   'cmdk.context.resource': 'Resource',
   'cmdk.context.settings': 'Settings',
   'cmdk.discover': 'Discover',
+  'cmdk.generate': 'Create',
   'cmdk.keyboard.ESC': 'ESC',
   'cmdk.keyboard.Enter': 'Enter',
   'cmdk.keyboard.Tab': 'Tab',
@@ -157,6 +158,8 @@ export default {
   'cmdk.keywords.discord': 'discord help support customer service',
 
   'cmdk.keywords.funds': 'funds balance credit money',
+
+  'cmdk.keywords.generate': 'generate image video create',
 
   'cmdk.keywords.hotkey': 'hotkey shortcut keyboard',
 
