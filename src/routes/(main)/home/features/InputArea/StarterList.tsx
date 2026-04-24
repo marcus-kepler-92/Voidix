@@ -1,7 +1,7 @@
 import { BUILTIN_AGENT_SLUGS } from '@lobechat/builtin-agents';
 import { Jimeng } from '@lobehub/icons';
 import { type ButtonProps } from '@lobehub/ui';
-import { Button, Center, Tooltip } from '@lobehub/ui';
+import { Button, Center } from '@lobehub/ui';
 import { createStaticStyles, cssVar } from 'antd-style';
 import { ImageIcon } from 'lucide-react';
 import { memo, useCallback, useMemo } from 'react';
@@ -28,7 +28,6 @@ const styles = createStaticStyles(({ css, cssVar }) => ({
 type StarterTitleKey = 'starter.imageGeneration' | 'starter.videoGeneration';
 
 interface StarterItem {
-  disabled?: boolean;
   hot?: boolean;
   icon?: ButtonProps['icon'];
   key: StarterMode;
@@ -82,7 +81,6 @@ const StarterList = memo(() => {
         const button = (
           <Button
             className={styles.button}
-            disabled={item.disabled}
             icon={item.icon}
             key={item.key}
             shape={'round'}
@@ -97,14 +95,6 @@ const StarterList = memo(() => {
             {item.hot && ' 🔥'}
           </Button>
         );
-
-        if (item.disabled) {
-          return (
-            <Tooltip key={item.key} title={t('starter.developing')}>
-              {button}
-            </Tooltip>
-          );
-        }
 
         return button;
       })}
