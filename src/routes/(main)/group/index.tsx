@@ -1,29 +1,7 @@
 'use client';
 
-import { Flexbox } from '@lobehub/ui';
-import { memo } from 'react';
+import { Navigate } from 'react-router-dom';
 
-import Conversation from './features/Conversation';
-import PageTitle from './features/PageTitle';
-import Portal from './features/Portal';
-import TelemetryNotification from './features/TelemetryNotification';
+const Group = () => <Navigate replace to="/" />;
 
-const ChatPage = memo(() => {
-  return (
-    <>
-      <PageTitle />
-      <Flexbox
-        horizontal
-        height={'100%'}
-        style={{ overflow: 'hidden', position: 'relative' }}
-        width={'100%'}
-      >
-        <Conversation />
-        <Portal />
-      </Flexbox>
-      <TelemetryNotification mobile={false} />
-    </>
-  );
-});
-
-export default ChatPage;
+export default Group;
