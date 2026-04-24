@@ -2,7 +2,7 @@ import { boolean, index, integer, pgTable, text, varchar } from 'drizzle-orm/pg-
 import { createInsertSchema } from 'drizzle-zod';
 
 import { idGenerator } from '../utils/idGenerator';
-import { createdAt, updatedAt } from './_helpers';
+import { timestamps } from './_helpers';
 
 export const galleryItems = pgTable(
   'gallery_items',
@@ -14,19 +14,15 @@ export const galleryItems = pgTable(
 
     url: text('url').notNull(),
 
-    /** 'image' | 'video' */
-    type: varchar('type', { length: 16 }).notNull().default('image'),
+    type: varchar('type', { length: 16 }).notNull().default('image').$type<'image' | 'video'>(),
 
     title: text('title'),
 
-    /** Display order — lower numbers appear first */
     sortOrder: integer('sort_order').notNull().default(0),
 
-    /** Whether to show this item in the public gallery */
     visible: boolean('visible').notNull().default(true),
 
-    createdAt: createdAt(),
-    updatedAt: updatedAt(),
+    ...timestamps,
   },
   (t) => [
     index('gallery_items_type_idx').on(t.type),
