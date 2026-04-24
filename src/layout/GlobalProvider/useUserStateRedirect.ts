@@ -11,7 +11,6 @@ export const useDesktopUserStateRedirect = () => {
   return useCallback(() => {}, []);
 };
 
-// Voidix: skip onboarding redirect on web
 export const useWebUserStateRedirect = () => useCallback(() => {}, []);
 
 export const useUserStateRedirect = () => {
