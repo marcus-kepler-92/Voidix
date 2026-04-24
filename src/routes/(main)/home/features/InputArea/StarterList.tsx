@@ -2,9 +2,8 @@ import { BUILTIN_AGENT_SLUGS } from '@lobechat/builtin-agents';
 import { Jimeng } from '@lobehub/icons';
 import { type ButtonProps } from '@lobehub/ui';
 import { Button, Center, Tooltip } from '@lobehub/ui';
-import { GroupBotSquareIcon } from '@lobehub/ui/icons';
 import { createStaticStyles, cssVar, cx } from 'antd-style';
-import { BotIcon, ImageIcon, PenLineIcon } from 'lucide-react';
+import { ImageIcon } from 'lucide-react';
 import { memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -63,21 +62,6 @@ const StarterList = memo(() => {
   const items: StarterItem[] = useMemo(
     () => [
       {
-        icon: BotIcon,
-        key: 'agent',
-        titleKey: 'starter.createAgent',
-      },
-      {
-        icon: GroupBotSquareIcon,
-        key: 'group',
-        titleKey: 'starter.createGroup',
-      },
-      {
-        icon: PenLineIcon,
-        key: 'write',
-        titleKey: 'starter.write',
-      },
-      {
         hot: true,
         icon: ImageIcon,
         key: 'image',
@@ -89,12 +73,6 @@ const StarterList = memo(() => {
         key: 'video',
         titleKey: 'starter.videoGeneration',
       },
-      // {
-      //   disabled: true,
-      //   icon: MicroscopeIcon,
-      //   key: 'research',
-      //   titleKey: 'starter.deepResearch',
-      // },
     ],
     [],
   );
