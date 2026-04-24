@@ -11,8 +11,10 @@ import DesktopOnboarding from '@/routes/(desktop)/desktop-onboarding';
 import DesktopMainLayout from '@/routes/(main)/_layout';
 import ImagePage from '@/routes/(main)/(create)/image';
 import DesktopImageLayout from '@/routes/(main)/(create)/image/_layout';
+import ImageWorkspacePage from '@/routes/(main)/(create)/image/workspace';
 import VideoPage from '@/routes/(main)/(create)/video';
 import DesktopVideoLayout from '@/routes/(main)/(create)/video/_layout';
+import VideoWorkspacePage from '@/routes/(main)/(create)/video/workspace';
 // Pages — sync import
 import AgentPage from '@/routes/(main)/agent';
 import DesktopChatLayout from '@/routes/(main)/agent/_layout';
@@ -360,6 +362,10 @@ export const desktopRoutes: RouteObject[] = [
             element: <VideoPage />,
             index: true,
           },
+          {
+            element: <VideoWorkspacePage />,
+            path: ':topicId',
+          },
         ],
         element: <DesktopVideoLayout />,
         errorElement: <ErrorBoundary />,
@@ -372,6 +378,10 @@ export const desktopRoutes: RouteObject[] = [
           {
             element: <ImagePage />,
             index: true,
+          },
+          {
+            element: <ImageWorkspacePage />,
+            path: ':topicId',
           },
         ],
         element: <DesktopImageLayout />,

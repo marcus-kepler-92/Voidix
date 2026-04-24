@@ -435,6 +435,13 @@ export const desktopRoutes: RouteObject[] = [
             ),
             index: true,
           },
+          {
+            element: dynamicElement(
+              () => import('@/routes/(main)/(create)/video/workspace'),
+              'Desktop > Video > Workspace',
+            ),
+            path: ':topicId',
+          },
         ],
         element: dynamicLayout(
           () => import('@/routes/(main)/(create)/video/_layout'),
@@ -453,6 +460,13 @@ export const desktopRoutes: RouteObject[] = [
               'Desktop > Image',
             ),
             index: true,
+          },
+          {
+            element: dynamicElement(
+              () => import('@/routes/(main)/(create)/image/workspace'),
+              'Desktop > Image > Workspace',
+            ),
+            path: ':topicId',
           },
         ],
         element: dynamicLayout(
