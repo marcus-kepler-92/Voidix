@@ -72,6 +72,9 @@ export const componentMap = {
   [SettingsTabs.Credits]: dynamic(() => import('@/business/client/BusinessSettingPages/Credits'), {
     loading: loading('Settings > Credits'),
   }),
+  [SettingsTabs.Gallery]: dynamic(() => import('../gallery'), {
+    loading: loading('Settings > Gallery'),
+  }),
   [SettingsTabs.Billing]: dynamic(() => import('@/business/client/BusinessSettingPages/Billing'), {
     loading: loading('Settings > Billing'),
   }),
