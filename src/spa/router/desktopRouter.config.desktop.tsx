@@ -458,8 +458,9 @@ export const desktopRoutes: RouteObject[] = [
         path: 'page',
       },
 
-      // Default route - home page (handled by persistent layout)
+      // Default route - redirect to image generation
       {
+        element: redirectElement('/image'),
         index: true,
       },
       // Catch-all route

@@ -1,9 +1,7 @@
-import { HomeIcon, SearchIcon } from 'lucide-react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { getRouteById } from '@/config/routes';
-import { useGlobalStore } from '@/store/global';
 import { SidebarTabKey } from '@/store/global/initialState';
 import { featureFlagsSelectors, useServerConfigStore } from '@/store/serverConfig';
 
@@ -34,34 +32,25 @@ export interface NavLayout {
 
 export const useNavLayout = (): NavLayout => {
   const { t } = useTranslation('common');
-  const toggleCommandMenu = useGlobalStore((s) => s.toggleCommandMenu);
   const { showMarket, hideGitHub } = useServerConfigStore(featureFlagsSelectors);
 
   const topNavItems = useMemo(
     () =>
       [
         {
-          hidden: true,
-          icon: SearchIcon,
-          key: 'search',
-          onClick: () => toggleCommandMenu(true),
-          title: t('tab.search'),
+          icon: getRouteById('image')!.icon,
+          key: SidebarTabKey.Image,
+          title: t('tab.image'),
+          url: '/image',
         },
         {
-          icon: HomeIcon,
-          key: SidebarTabKey.Home,
-          title: t('tab.home'),
-          url: '/',
-        },
-        {
-          hidden: true,
-          icon: getRouteById('page')!.icon,
-          key: SidebarTabKey.Pages,
-          title: t('tab.pages'),
-          url: '/page',
+          icon: getRouteById('video')!.icon,
+          key: SidebarTabKey.Video,
+          title: t('tab.video'),
+          url: '/video',
         },
       ] as NavItem[],
-    [t, toggleCommandMenu],
+    [t],
   );
 
   const bottomMenuItems = useMemo(
