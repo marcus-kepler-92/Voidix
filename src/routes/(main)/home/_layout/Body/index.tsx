@@ -27,7 +27,7 @@ export enum GroupKey {
   Resource = 'resource',
 }
 
-const ACCORDION_KEYS = new Set<string>([GroupKey.Recents, GroupKey.Agent]);
+const ACCORDION_KEYS = new Set<string>([GroupKey.Recents]);
 
 const accordionComponents: Record<string, (key: string) => ReactElement> = {
   [GroupKey.Agent]: (key) => <Agent itemKey={key} key={key} />,
@@ -78,10 +78,7 @@ const Body = memo(() => {
   }, [topNavItems, bottomMenuItems]);
 
   // Items that must always be visible regardless of hiddenSections
-  const isVisible = useCallback(
-    (k: string) => k === GroupKey.Agent || !hiddenSections.includes(k),
-    [hiddenSections],
-  );
+  const isVisible = useCallback((k: string) => !hiddenSections.includes(k), [hiddenSections]);
 
   const visibleKeys = useMemo(() => sidebarItems.filter(isVisible), [sidebarItems, isVisible]);
 
