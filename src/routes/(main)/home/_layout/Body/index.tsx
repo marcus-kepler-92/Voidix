@@ -9,7 +9,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import NavItem from '@/features/NavPanel/components/NavItem';
 import { useActiveTabKey } from '@/hooks/useActiveTabKey';
 import { type NavItem as NavItemType, useNavLayout } from '@/hooks/useNavLayout';
-import Recents from '@/routes/(main)/home/features/Recents';
 import { useGlobalStore } from '@/store/global';
 import { systemStatusSelectors } from '@/store/global/selectors';
 import { isModifierClick } from '@/utils/navigation';
@@ -25,11 +24,9 @@ export enum GroupKey {
   Resource = 'resource',
 }
 
-const ACCORDION_KEYS = new Set<string>([GroupKey.Recents]);
+const ACCORDION_KEYS = new Set<string>([]);
 
-const accordionComponents: Record<string, (key: string) => ReactElement> = {
-  [GroupKey.Recents]: (key) => <Recents itemKey={key} key={key} />,
-};
+const accordionComponents: Record<string, (key: string) => ReactElement> = {};
 
 const Body = memo(() => {
   const { t } = useTranslation('common');
@@ -121,7 +118,7 @@ const Body = memo(() => {
       if (accGroup.length > 0) {
         elements.push(
           <Accordion
-            defaultExpandedKeys={[GroupKey.Recents, GroupKey.Project]}
+            defaultExpandedKeys={[GroupKey.Project]}
             gap={8}
             key={`acc-${elements.length}`}
           >
