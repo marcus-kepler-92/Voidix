@@ -2,8 +2,6 @@
 
 import type { ComponentType } from 'react';
 
-import { useQueryState } from '@/hooks/useQueryParam';
-
 import type { GenerationWorkspaceContentSelectors } from './Content';
 import Content from './Content';
 import EmptyState from './EmptyState';
@@ -26,10 +24,9 @@ const GenerationWorkspace = ({
   GenerationFeed,
   SkeletonList,
 }: GenerationWorkspaceProps) => {
-  const [topic] = useQueryState('topic');
   const isCreatingWithNewTopic = useStore((s: any) => s.isCreatingWithNewTopic);
 
-  if (!topic || isCreatingWithNewTopic) {
+  if (isCreatingWithNewTopic) {
     return <EmptyState PromptInput={PromptInput} embedInput={embedInput} />;
   }
 
