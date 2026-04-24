@@ -31,6 +31,7 @@ import { deviceRouter } from './device';
 import { documentRouter } from './document';
 import { exporterRouter } from './exporter';
 import { fileRouter } from './file';
+import { galleryItemRouter } from './galleryItem';
 import { generationRouter } from './generation';
 import { generationBatchRouter } from './generationBatch';
 import { generationTopicRouter } from './generationTopic';
@@ -86,6 +87,7 @@ export const lambdaRouter = router({
   document: documentRouter,
   exporter: exporterRouter,
   file: fileRouter,
+  galleryItem: galleryItemRouter,
   generation: generationRouter,
   generationBatch: generationBatchRouter,
   generationTopic: generationTopicRouter,
