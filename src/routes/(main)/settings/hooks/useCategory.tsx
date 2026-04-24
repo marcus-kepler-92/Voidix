@@ -1,10 +1,8 @@
 import { isDesktop } from '@lobechat/const';
 import { Avatar } from '@lobehub/ui';
-import { SkillsIcon } from '@lobehub/ui/icons';
 import {
   // BellIcon,
   Brain,
-  BrainCircuit,
   ChartColumnBigIcon,
   Coins,
   CreditCard,
@@ -15,10 +13,8 @@ import {
   Info,
   KeyboardIcon,
   KeyIcon,
-  KeyRound,
   Map,
   PaletteIcon,
-  Sparkles,
   TerminalSquare,
 } from 'lucide-react';
 import { useMemo } from 'react';
@@ -87,11 +83,6 @@ export const useCategory = () => {
         label: username ? username : tAuth('tab.profile'),
       },
       {
-        icon: ChartColumnBigIcon,
-        key: SettingsTabs.Stats,
-        label: tAuth('tab.stats'),
-      },
-      {
         icon: PaletteIcon,
         key: SettingsTabs.Appearance,
         label: t('tab.appearance'),
@@ -138,26 +129,6 @@ export const useCategory = () => {
         icon: Brain,
         key: SettingsTabs.Provider,
         label: t('tab.provider'),
-      },
-      {
-        icon: Sparkles,
-        key: SettingsTabs.ServiceModel,
-        label: t('tab.serviceModel'),
-      },
-      {
-        icon: SkillsIcon,
-        key: SettingsTabs.Skill,
-        label: t('tab.skill'),
-      },
-      {
-        icon: BrainCircuit,
-        key: SettingsTabs.Memory,
-        label: t('tab.memory'),
-      },
-      {
-        icon: KeyRound,
-        key: SettingsTabs.Creds,
-        label: t('tab.creds'),
       },
       showApiKeyManage && {
         icon: KeyIcon,
