@@ -53,6 +53,7 @@ export const useNavLayout = (): NavLayout => {
           url: '/',
         },
         {
+          hidden: true,
           icon: getRouteById('page')!.icon,
           key: SidebarTabKey.Pages,
           title: t('tab.pages'),
@@ -73,12 +74,14 @@ export const useNavLayout = (): NavLayout => {
           url: '/community',
         },
         {
+          hidden: true,
           icon: getRouteById('resource')!.icon,
           key: SidebarTabKey.Resource,
           title: t('tab.resource'),
           url: '/resource',
         },
         {
+          hidden: true,
           icon: getRouteById('memory')!.icon,
           key: SidebarTabKey.Memory,
           title: t('tab.memory'),
