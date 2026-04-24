@@ -34,6 +34,7 @@ import {
 } from '@/routes/(main)/(create)/image/features/ConfigPanel';
 import ImageModelItem from '@/routes/(main)/(create)/image/features/ConfigPanel/components/ModelSelect/ImageModelItem';
 import { aiProviderSelectors, useAiInfraStore } from '@/store/aiInfra';
+import { useGlobalStore } from '@/store/global';
 import { useImageStore } from '@/store/image';
 import { createImageSelectors, imageGenerationConfigSelectors } from '@/store/image/selectors';
 import {
@@ -102,6 +103,7 @@ const PromptInput = ({ showTitle = false }: PromptInputProps) => {
   const isDarkMode = useIsDark();
   const { t } = useTranslation('image');
   const navigate = useNavigate();
+  const updateSystemStatus = useGlobalStore((s) => s.updateSystemStatus);
   const { value, setValue } = useGenerationConfigParam('prompt');
   const { value: imageUrl, setValue: setImageUrl } = useGenerationConfigParam('imageUrl');
   const {
@@ -150,7 +152,10 @@ const PromptInput = ({ showTitle = false }: PromptInputProps) => {
     await createImage();
     if (!prevTopicId) {
       const newTopicId = useImageStore.getState().activeGenerationTopicId;
-      if (newTopicId) navigate(`/image/${newTopicId}`);
+      if (newTopicId) {
+        updateSystemStatus({ generationMode: 'image' });
+        navigate(`/generate/${newTopicId}`);
+      }
     }
   };
 

@@ -26,6 +26,7 @@ import { AspectRatioSelect } from '@/routes/(main)/(create)/image/features/Confi
 import Select from '@/routes/(main)/(create)/image/features/ConfigPanel/components/Select';
 import VideoModelItem from '@/routes/(main)/(create)/video/features/ConfigPanel/components/ModelSelect/VideoModelItem';
 import { aiProviderSelectors, useAiInfraStore } from '@/store/aiInfra';
+import { useGlobalStore } from '@/store/global';
 import { useUserStore } from '@/store/user';
 import { authSelectors } from '@/store/user/slices/auth/selectors';
 import { useVideoStore } from '@/store/video';
@@ -203,6 +204,7 @@ const PromptInput = ({ showTitle = false }: PromptInputProps) => {
   const isDarkMode = useIsDark();
   const { t } = useTranslation('video');
   const navigate = useNavigate();
+  const updateSystemStatus = useGlobalStore((s) => s.updateSystemStatus);
   const { value, setValue } = useVideoGenerationConfigParam('prompt');
   const { value: imageUrl, setValue: setImageUrl } = useVideoGenerationConfigParam('imageUrl');
   const {
@@ -254,7 +256,10 @@ const PromptInput = ({ showTitle = false }: PromptInputProps) => {
     await createVideo();
     if (!prevTopicId) {
       const newTopicId = useVideoStore.getState().activeGenerationTopicId;
-      if (newTopicId) navigate(`/video/${newTopicId}`);
+      if (newTopicId) {
+        updateSystemStatus({ generationMode: 'video' });
+        navigate(`/generate/${newTopicId}`);
+      }
     }
   };
 
