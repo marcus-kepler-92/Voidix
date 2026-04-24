@@ -15,11 +15,9 @@ import { systemStatusSelectors } from '@/store/global/selectors';
 import { isModifierClick } from '@/utils/navigation';
 import { prefetchRoute } from '@/utils/router';
 
-import Agent from './Agent';
 import { CustomizeSidebarModal, openCustomizeSidebarModal } from './CustomizeSidebarModal';
 
 export enum GroupKey {
-  Agent = 'agent',
   Community = 'community',
   Pages = 'pages',
   Project = 'project',
@@ -30,7 +28,6 @@ export enum GroupKey {
 const ACCORDION_KEYS = new Set<string>([GroupKey.Recents]);
 
 const accordionComponents: Record<string, (key: string) => ReactElement> = {
-  [GroupKey.Agent]: (key) => <Agent itemKey={key} key={key} />,
   [GroupKey.Recents]: (key) => <Recents itemKey={key} key={key} />,
 };
 
@@ -124,7 +121,7 @@ const Body = memo(() => {
       if (accGroup.length > 0) {
         elements.push(
           <Accordion
-            defaultExpandedKeys={[GroupKey.Recents, GroupKey.Project, GroupKey.Agent]}
+            defaultExpandedKeys={[GroupKey.Recents, GroupKey.Project]}
             gap={8}
             key={`acc-${elements.length}`}
           >
