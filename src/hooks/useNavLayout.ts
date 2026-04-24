@@ -41,6 +41,7 @@ export const useNavLayout = (): NavLayout => {
     () =>
       [
         {
+          hidden: true,
           icon: SearchIcon,
           key: 'search',
           onClick: () => toggleCommandMenu(true),
@@ -104,7 +105,7 @@ export const useNavLayout = (): NavLayout => {
   const userPanel = useMemo(
     () => ({
       showDataImporter: false,
-      showMemory: true,
+      showMemory: false,
     }),
     [],
   );
