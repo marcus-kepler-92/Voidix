@@ -39,7 +39,7 @@ const CreateGenerationPage = memo<CreateGenerationPageProps>(({ PromptInput }) =
           <Flexbox
             align={'center'}
             direction={'vertical'}
-            style={{ minHeight: 'calc(100vh - 180px)', paddingBlockStart: 80 }}
+            style={{ paddingBlockStart: 32 }}
             width={'100%'}
           >
             <PromptInput disableAnimation showTitle />
