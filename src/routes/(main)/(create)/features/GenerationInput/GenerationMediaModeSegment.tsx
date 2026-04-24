@@ -8,6 +8,8 @@ import { memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import { useGlobalStore } from '@/store/global';
+
 export interface GenerationMediaModeSegmentProps {
   /** `hero`: large inline headline select (cyan, borderless). `toolbar`: compact control in the input bar. */
   layout?: 'hero' | 'toolbar';
@@ -34,6 +36,7 @@ const GenerationMediaModeSegment = memo<GenerationMediaModeSegmentProps>(
   ({ mode, layout = 'toolbar' }) => {
     const { t } = useTranslation('common');
     const navigate = useNavigate();
+    const updateSystemStatus = useGlobalStore((s) => s.updateSystemStatus);
     const isHero = layout === 'hero';
 
     const options = useMemo<SelectProps['options']>(
@@ -91,9 +94,10 @@ const GenerationMediaModeSegment = memo<GenerationMediaModeSegmentProps>(
     const handleChange = useCallback(
       (value: string) => {
         if (value === mode) return;
-        navigate(value === 'video' ? '/video' : '/image');
+        updateSystemStatus({ generationMode: value as 'image' | 'video' });
+        navigate('/generate');
       },
-      [mode, navigate],
+      [mode, navigate, updateSystemStatus],
     );
 
     return (
