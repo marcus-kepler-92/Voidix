@@ -1,3 +1,4 @@
+import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
 import { GalleryItemModel } from '@/database/models/galleryItem';
@@ -44,7 +45,10 @@ export const galleryItemRouter = router({
 
   update: adminProcedure.input(updateItemSchema).mutation(async ({ ctx, input }) => {
     const { id, ...data } = input;
-    return ctx.galleryItemModel.update(id, data);
+    const result = await ctx.galleryItemModel.update(id, data);
+    if (!result)
+      throw new TRPCError({ code: 'NOT_FOUND', message: `Gallery item ${id} not found` });
+    return result;
   }),
 
   delete: adminProcedure.input(z.object({ id: z.string() })).mutation(async ({ ctx, input }) => {

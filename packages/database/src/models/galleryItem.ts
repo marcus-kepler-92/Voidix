@@ -34,7 +34,7 @@ export class GalleryItemModel {
   update = async (
     id: string,
     data: Partial<Omit<NewGalleryItem, 'id'>>,
-  ): Promise<GalleryItemRecord> => {
+  ): Promise<GalleryItemRecord | undefined> => {
     const [result] = await this.db
       .update(galleryItems)
       .set(data)

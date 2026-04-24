@@ -1,13 +1,13 @@
 'use client';
 
 import { Skeleton } from 'antd';
-import { createStyles } from 'antd-style';
+import { createStaticStyles, cx } from 'antd-style';
 import { memo, useEffect, useState } from 'react';
 
 import type { GalleryItemRecord } from '@/database/schemas/galleryItem';
 import { lambdaClient } from '@/libs/trpc/client';
 
-const useStyles = createStyles(({ css, token }) => ({
+const styles = createStaticStyles(({ css, cssVar }) => ({
   container: css`
     width: 100%;
     padding-block: 24px 40px;
@@ -27,9 +27,9 @@ const useStyles = createStyles(({ css, token }) => ({
     overflow: hidden;
 
     aspect-ratio: 1;
-    border-radius: ${token.borderRadiusLG}px;
+    border-radius: ${cssVar.borderRadiusLG};
 
-    background: ${token.colorFillTertiary};
+    background: ${cssVar.colorFillTertiary};
 
     img {
       width: 100%;
@@ -65,7 +65,6 @@ const useStyles = createStyles(({ css, token }) => ({
 }));
 
 const GalleryGrid = memo(() => {
-  const { styles, cx } = useStyles();
   const [items, setItems] = useState<GalleryItemRecord[]>([]);
   const [loading, setLoading] = useState(true);
 
