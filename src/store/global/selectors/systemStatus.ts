@@ -34,17 +34,10 @@ export const DEFAULT_HIDDEN_SECTIONS: string[] = ['memory'];
 const hiddenSidebarSections = (s: GlobalState): string[] =>
   s.status.hiddenSidebarSections ?? DEFAULT_HIDDEN_SECTIONS;
 
-export const DEFAULT_SIDEBAR_ITEMS: string[] = [
-  'pages',
-  'recents',
-  'agent',
-  'community',
-  'resource',
-  'memory',
-];
+export const DEFAULT_SIDEBAR_ITEMS: string[] = ['image', 'video'];
 
 /** Items that must stay contiguous in the sidebar list (accordion block). */
-export const SIDEBAR_ACCORDION_KEYS = new Set(['recents', 'agent']);
+export const SIDEBAR_ACCORDION_KEYS = new Set<string>([]);
 
 /** Append any known keys missing from `order` so new items don't disappear on upgrade. */
 const withAllKnownKeys = (order: string[]): string[] => {
