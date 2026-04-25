@@ -636,6 +636,22 @@ table knowledge_bases {
   }
 }
 
+table gallery_items {
+  id text [pk, not null]
+  url text [not null]
+  type varchar(16) [not null, default: 'image']
+  title text
+  sort_order integer [not null, default: 0]
+  visible boolean [not null, default: true]
+  created_at "timestamp with time zone" [not null, default: `now()`]
+  updated_at "timestamp with time zone" [not null, default: `now()`]
+
+  indexes {
+    type [name: 'gallery_items_type_idx']
+    sort_order [name: 'gallery_items_sort_idx']
+  }
+}
+
 table generation_batches {
   id text [pk, not null]
   user_id text [not null]
