@@ -564,11 +564,6 @@ export const desktopRoutes: RouteObject[] = [
         path: 'page',
       },
 
-      // Default route - redirect to generate
-      {
-        element: redirectElement('/generate'),
-        index: true,
-      },
       // Catch-all route
       {
         element: redirectElement('/'),
