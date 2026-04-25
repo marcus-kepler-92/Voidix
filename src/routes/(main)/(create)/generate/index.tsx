@@ -1,19 +1,24 @@
 'use client';
 
-import { Flexbox } from '@lobehub/ui';
-import { memo } from 'react';
+import { Center, Flexbox } from '@lobehub/ui';
+import { memo, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import NavHeader from '@/features/NavHeader';
-import WideScreenContainer from '@/features/WideScreenContainer';
 import WideScreenButton from '@/features/WideScreenContainer/WideScreenButton';
 import ImagePromptInput from '@/routes/(main)/(create)/image/features/PromptInput';
 import VideoPromptInput from '@/routes/(main)/(create)/video/features/PromptInput';
+import WelcomeText from '@/routes/(main)/home/features/WelcomeText';
 import { useGlobalStore } from '@/store/global';
 import { systemStatusSelectors } from '@/store/global/selectors/systemStatus';
 
 const GenerateHomePage = memo(() => {
+  const { i18n } = useTranslation();
   const mode = useGlobalStore(systemStatusSelectors.generationMode);
   const PromptInputComponent = mode === 'video' ? VideoPromptInput : ImagePromptInput;
+
+  // eslint-disable-next-line @eslint-react/no-nested-component-definitions
+  const Welcome = useCallback(() => <WelcomeText />, [i18n.language]);
 
   return (
     <>
@@ -25,16 +30,16 @@ const GenerateHomePage = memo(() => {
           right: { flex: 1, minWidth: 0 },
         }}
       />
-      <Flexbox
+      <Center
         height={'100%'}
-        style={{ flexDirection: 'column', overflow: 'hidden', position: 'relative' }}
+        style={{ flexDirection: 'column', overflow: 'hidden' }}
         width={'100%'}
       >
-        <Flexbox flex={1} style={{ minHeight: 0 }} />
-        <WideScreenContainer style={{ marginTop: -8, paddingBlockEnd: 12 }}>
+        <Flexbox style={{ maxWidth: 680, padding: '0 16px', width: '100%' }}>
+          <Welcome />
           <PromptInputComponent disableAnimation showTitle={false} />
-        </WideScreenContainer>
-      </Flexbox>
+        </Flexbox>
+      </Center>
     </>
   );
 });
