@@ -4,8 +4,6 @@ import { Center, Flexbox } from '@lobehub/ui';
 import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import NavHeader from '@/features/NavHeader';
-import WideScreenButton from '@/features/WideScreenContainer/WideScreenButton';
 import ImagePromptInput from '@/routes/(main)/(create)/image/features/PromptInput';
 import VideoPromptInput from '@/routes/(main)/(create)/video/features/PromptInput';
 import WelcomeText from '@/routes/(main)/home/features/WelcomeText';
@@ -21,26 +19,12 @@ const GenerateHomePage = memo(() => {
   const Welcome = useCallback(() => <WelcomeText />, [i18n.language]);
 
   return (
-    <>
-      <NavHeader
-        right={<WideScreenButton />}
-        styles={{
-          center: { alignItems: 'center', display: 'flex', justifyContent: 'center', minWidth: 0 },
-          left: { flex: 1, minWidth: 0 },
-          right: { flex: 1, minWidth: 0 },
-        }}
-      />
-      <Center
-        height={'100%'}
-        style={{ flexDirection: 'column', overflow: 'hidden' }}
-        width={'100%'}
-      >
-        <Flexbox style={{ maxWidth: 680, padding: '0 16px', width: '100%' }}>
-          <Welcome />
-          <PromptInputComponent disableAnimation showTitle={false} />
-        </Flexbox>
-      </Center>
-    </>
+    <Center height={'100%'} style={{ flexDirection: 'column', overflow: 'hidden' }} width={'100%'}>
+      <Flexbox style={{ maxWidth: 680, padding: '0 16px', width: '100%' }}>
+        <Welcome />
+        <PromptInputComponent disableAnimation showTitle={false} />
+      </Flexbox>
+    </Center>
   );
 });
 
