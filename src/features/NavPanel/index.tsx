@@ -12,6 +12,7 @@ export const NAV_PANEL_RIGHT_DRAWER_ID = 'nav-panel-drawer';
 type NavPanelSnapshot = {
   key: string;
   node: ReactNode;
+  slimMode?: boolean;
 } | null;
 
 let currentSnapshot: NavPanelSnapshot = null;
@@ -36,7 +37,7 @@ const NavPanel = memo(() => {
   );
 
   // Use home Content as fallback when no portal content is provided
-  const activeContent = panelContent || { key: 'home', node: <Sidebar /> };
+  const activeContent = panelContent || { key: 'home', node: <Sidebar />, slimMode: true };
 
   return (
     <>
@@ -57,23 +58,23 @@ const NavPanel = memo(() => {
 export default NavPanel;
 
 interface NavPanelPortalProps extends PropsWithChildren {
-  /**
-   * Unique key to trigger transition animation when content changes
-   * @example <NavPanelPortal navKey="chat">...</NavPanelPortal>
-   */
   navKey?: string;
+  slimMode?: boolean;
 }
 
-export const NavPanelPortal = memo<NavPanelPortalProps>(({ children, navKey = 'default' }) => {
-  useLayoutEffect(() => {
-    if (!children) return;
+export const NavPanelPortal = memo<NavPanelPortalProps>(
+  ({ children, navKey = 'default', slimMode }) => {
+    useLayoutEffect(() => {
+      if (!children) return;
 
-    setNavPanelSnapshot({
-      key: navKey,
-      node: children,
-    });
-    // Intentionally keep previous content until new one mounts.
-  }, [children, navKey]);
+      setNavPanelSnapshot({
+        key: navKey,
+        node: children,
+        slimMode,
+      });
+      // Intentionally keep previous content until new one mounts.
+    }, [children, navKey, slimMode]);
 
-  return null;
-});
+    return null;
+  },
+);

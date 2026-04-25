@@ -2,12 +2,12 @@ import { memo } from 'react';
 
 import { NavPanelPortal } from '@/features/NavPanel';
 
-import SidebarContent from './SidebarContent';
+import SlimSidebarContent from './SlimSidebarContent';
 
 const Sidebar = memo(() => {
   return (
-    <NavPanelPortal navKey="home">
-      <SidebarContent />
+    <NavPanelPortal slimMode navKey="home">
+      <SlimSidebarContent />
     </NavPanelPortal>
   );
 });

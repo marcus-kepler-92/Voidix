@@ -16,6 +16,8 @@ import { isMacOS } from '@/utils/platform';
 import { useNavPanelSizeChangeHandler } from '../hooks/useNavPanel';
 import { BACK_BUTTON_ID } from './BackButton';
 
+const SLIM_NAV_WIDTH = 72;
+
 const draggableStyles = createStaticStyles(({ css, cssVar }) => ({
   content: css`
     position: relative;
@@ -98,6 +100,7 @@ interface NavPanelDraggableProps {
   activeContent: {
     key: string;
     node: ReactNode;
+    slimMode?: boolean;
   };
 }
 
@@ -127,6 +130,29 @@ export const NavPanelDraggable = memo<NavPanelDraggableProps>(({ activeContent }
     }),
     [],
   );
+
+  if (activeContent.slimMode) {
+    return (
+      <div
+        style={{
+          background: isDesktop && isMacOS() ? 'transparent' : cssVar.colorBgLayout,
+          color: cssVar.colorTextSecondary,
+          display: 'flex',
+          flexDirection: 'column',
+          flexShrink: 0,
+          height: '100%',
+          overflow: 'hidden',
+          userSelect: 'none',
+          width: SLIM_NAV_WIDTH,
+        }}
+      >
+        <div style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>{activeContent.node}</div>
+        <Suspense>
+          <Footer />
+        </Suspense>
+      </div>
+    );
+  }
 
   if (defaultWidthRef.current === 0) {
     const pendingWidth = systemStatusSelectors.leftPanelWidth(useGlobalStore.getState());
